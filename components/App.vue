@@ -1,16 +1,15 @@
 <template>
-  <div class="app">
+  <div id="app">
+    <div id="navigation">
       <NavBar/>
-      <div class="container" v-bind:class="{active: $store.getters['store/isActive']}">
-        <div class="product-panel">
-
-
-          <nuxt />
-        </div>
-
-      </div>
-    <FootBar/>
     </div>
+    <div id="content">
+      <nuxt/>
+    </div>
+    <div id="footer">
+      <FootBar/>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -31,3 +30,23 @@ export default {
   }
 }
 </script>
+
+<style>
+#app{
+  height: 100%;
+}
+
+#navigation{
+  height: 10%;
+}
+
+#content {
+  margin: 25px;
+  padding: 25px;
+  height: 85vh;
+}
+
+#footer {
+  height: 10%;
+}
+</style>

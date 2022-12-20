@@ -6,8 +6,8 @@
           <input type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
         </div>
         <div class="btn-block">
-          <button class="btn btn-dark" @click="submitFile">Załaduj</button>
-          <a class="btn btn-dark" href="http://localhost:8080/apiv2/csv/download/dane.csv">Pobierz</a>
+          <button class="btn btn-dark" @click="submitFile">ZAŁADUJ</button>
+          <a class="btn btn-dark" href="http://localhost:8080/apiv2/csv/download/dane.csv">POBIERZ</a>
         </div>
       </div>
     </template>
@@ -15,7 +15,8 @@
       :headers="headers"
       :items="products"
       items-per-page="10"
-      sort-by="calories"
+      :search="search"
+      sort-by="price"
       class="elevation-1"
     >
       <template v-slot:top>
@@ -29,13 +30,20 @@
             inset
             vertical
           ></v-divider>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="Szukaj"
+            single-line
+            hide-details
+          ></v-text-field>
           <v-spacer></v-spacer>
           <v-dialog
             id="dial"
             v-model="dialogEdit"
             max-width="500px"
           >
-            <v-card height="60vh">
+            <v-card height="50vh">
               <v-card-title>
                 <span class="text-h5">Edytowanie produktu</span>
               </v-card-title>
@@ -95,7 +103,7 @@
                 Nowy Produkt
               </v-btn>
             </template>
-            <v-card height="60vh">
+            <v-card height="50vh">
               <v-card-title>
                 <span class="text-h5">Dodawanie produktu</span>
               </v-card-title>
@@ -156,14 +164,6 @@
           mdi-delete
         </v-icon>
       </template>
-      <template v-slot:no-data>
-        <v-btn
-          color="primary"
-          @click="initialize"
-        >
-          Reset
-        </v-btn>
-      </template>
     </v-data-table>
   </div>
 </template>
@@ -172,6 +172,7 @@
 
 export default {
   data: () => ({
+    search: '',
     dialogAdd: false,
     dialogDelete: false,
     dialogEdit: false,
@@ -185,7 +186,7 @@ export default {
       { text: 'Nazwa', value: 'name' },
       { text: 'Nazwa producenta', value: 'producerName' },
       { text: 'Cena', value: 'price' },
-      { text: 'Actions', value: 'actions', sortable: false },
+      { text: 'Edytuj/Usuń', value: 'actions', sortable: false },
     ],
     products: [],
     credentials: {
@@ -223,9 +224,6 @@ export default {
   },
 
   methods: {
-    edit() {
-      return edit
-    },
     async loadProducts() {
       this.$axios.get('/api/products', {
         headers: {Authorization: this.$auth.strategy.token.get()}
