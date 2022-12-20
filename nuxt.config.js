@@ -48,6 +48,7 @@ export default {
     {src: "~/plugins/numeral-filter.js", ssr: false},
     {src: "~/plugins/fontawesome.js", ssr: false},
     {src: "~/plugins/chart-plugin.js", ssr: false},
+    {src: "~/plugins/vuetify.js", ssr: false},
 
   ],
 
@@ -58,7 +59,8 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     '@nuxtjs/router',
-    '@nuxtjs/auth-next'
+    '@nuxtjs/auth-next',
+    '@nuxtjs/vuetify'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -76,7 +78,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    vendor: ["aos"]
+    vendor: ["aos", "vuetify"]
   },
   server: {
     port: 3001 // default: 3000

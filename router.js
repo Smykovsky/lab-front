@@ -2,10 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import App from '@/components/App';
 
+
 //web
 import home from '@/pages/home';
-import productAdd from '@/pages/product/add'
-import productEdit from '@/pages/product/edit'
 
 import notFound from '@/pages/notFound.vue';
 
@@ -47,16 +46,6 @@ export function createRouter() {
             path: '',
             component: home,
             name: 'home'
-          },
-          {
-            path: '/product/dodaj',
-            component: productAdd,
-            name: 'product.add'
-          },
-          {
-            path: '/product/edytuj/:id',
-            component: productEdit,
-            name: 'product.edit'
           },
           {
             path: '*',
